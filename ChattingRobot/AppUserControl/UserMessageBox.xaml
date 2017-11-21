@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="ChattingRobot.AppUserControl.UserMessageBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ChattingRobot.AppUserControl"
+             
+             xmlns:vm="clr-namespace:ChattingRobot.ViewModel"
+             xmlns:messenger="clr-namespace:GalaSoft.MvvmLight.Messaging;assembly=GalaSoft.MvvmLight"
+             
+             xmlns:util="clr-namespace:ChattingRobot.Util"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <util:ChatterTypeToBackgroundConverter x:Key="backgroundConverter"></util:ChatterTypeToBackgroundConverter>
+        <util:ChatterTypeToHorizentalAlignmentConverter x:Key="alignmentConverter"></util:ChatterTypeToHorizentalAlignmentConverter>
+
+        <vm:UserMessageBoxControlViewModel x:Key="UniqueViewModel"/>
+        <messenger:Messenger x:Key="UniqueMessenger"/>
+    </UserControl.Resources>
+
+    <StackPanel DataContext="{StaticResource UniqueViewModel}" Orientation="Vertical" HorizontalAlignment="{Binding ChatterType, Converter={StaticResource alignmentConverter}}"
+                Margin="5 5 5 5">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{Binding TimeStamp}" HorizontalAlignment="{Binding ChatterType, Converter={StaticResource alignmentConverter}}">
+            </TextBlock>
+            <TextBox Text="{Binding MessageText}" FontSize="18" Foreground="White"
+                     TextWrapping="Wrap"
+                     MaxWidth="230"
+                     Background="{Binding ChatterType, Converter={StaticResource backgroundConverter}}" 
+                     HorizontalAlignment="{Binding ChatterType, Converter={StaticResource alignmentConverter}}">
+            </TextBox>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

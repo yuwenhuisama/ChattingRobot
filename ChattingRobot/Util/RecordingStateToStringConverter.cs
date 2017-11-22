@@ -8,22 +8,19 @@ using System.Windows.Data;
 
 namespace ChattingRobot.Util
 {
-    public class ChatterTypeToBackgroundConverter : IValueConverter
+    public class RecordingStateToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var type = (ChatterType)value;
-            switch (type)
+            var isRecording = (bool)value;
+            if(isRecording)
             {
-                case ChatterType.People:
-                    return "SkyBlue";
-                case ChatterType.Robot:
-                    return "Gray";
-                default:
-                    break;
+                return "停止录音";
             }
-
-            return "";
+            else
+            {
+                return "开始录音";
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

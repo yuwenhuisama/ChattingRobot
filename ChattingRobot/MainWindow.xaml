@@ -19,7 +19,7 @@
 
     <Window.Resources>
         <util:KeyDownConverter x:Key="keyDownConverter"/>
-
+        <util:RecordingStateToStringConverter x:Key="recordingConverter"></util:RecordingStateToStringConverter>
     </Window.Resources>
 
     <i:Interaction.Triggers>
@@ -88,7 +88,13 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Style="{StaticResource AccentedSquareButtonStyle}">语音输入</Button>
+                <Button Style="{StaticResource AccentedSquareButtonStyle}" Content="{Binding MainViewModel.IsRecording, Source={StaticResource Locator}, Converter={StaticResource recordingConverter}}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <command:EventToCommand Command="{Binding MainViewModel.RecordingHandler, Source={StaticResource Locator}}" ></command:EventToCommand>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
 
         </Grid>

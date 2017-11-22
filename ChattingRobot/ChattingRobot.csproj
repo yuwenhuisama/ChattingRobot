@@ -91,6 +91,7 @@
     <Compile Include="Util\KeyDownConverter.cs" />
     <Compile Include="Util\MessageObject.cs" />
     <Compile Include="Util\Messages.cs" />
+    <Compile Include="Util\RecordingStateToStringConverter.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\UserMessageBoxControlViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

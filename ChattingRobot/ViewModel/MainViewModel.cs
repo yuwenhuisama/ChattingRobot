@@ -71,6 +71,23 @@ namespace ChattingRobot.ViewModel
             }
         }
 
+        private bool _isRecording;
+
+        public bool IsRecording
+        {
+            get { return _isRecording; }
+            set
+            {
+                if (value == _isRecording)
+                {
+                    return;
+                }
+                _isRecording = value;
+                RaisePropertyChanged(() => IsRecording);
+            }
+        }
+
+
         private ObservableCollection<MessageObject> _messages = new ObservableCollection<MessageObject>();
 
         public ObservableCollection<MessageObject> Messages
@@ -100,7 +117,7 @@ namespace ChattingRobot.ViewModel
             },
             ()=>
             {
-                return !WaitingMessage;
+                return !WaitingMessage && !IsRecording;
             });
 
             WindowLoadedHandler = new RelayCommand(() =>
@@ -120,8 +137,42 @@ namespace ChattingRobot.ViewModel
             },
             (enterDown)=>
             {
-                return enterDown && !WaitingMessage;
+                return enterDown && !WaitingMessage && !IsRecording;
             });
+
+            RecordingHandler = new RelayCommand(() =>
+            {
+                IsRecording = !IsRecording;
+                if (IsRecording)
+                {
+                    try
+                    {
+                        ChattingHelper.StartRecording();
+                    }
+                    catch (Exception e)
+                    {
+                        AppendMessage(ChatterType.Robot, String.Format("哎呀！Ruby好像遇到了点问题？\n错误信息:\n{0}", e.ToString()));
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        ChattingHelper.StopRecording();
+                        CurrentMessage = ChattingHelper.RecordText;
+                    }
+                    catch (Exception e)
+                    {
+                        AppendMessage(ChatterType.Robot, String.Format("哎呀！Ruby好像遇到了点问题？\n错误信息:\n{0}", e.ToString()));
+                    }
+                }
+
+            },
+            () =>
+            {
+                return !WaitingMessage;
+            });
+
 
             ////if (IsInDesignMode)
             ////{
@@ -191,5 +242,7 @@ namespace ChattingRobot.ViewModel
         public RelayCommand SendMessageHandler { get; set; }
         public RelayCommand<bool> InputEnterDownHandler { get; set; }
         public RelayCommand WindowLoadedHandler { get; set; }
+        public RelayCommand RecordingHandler { get; set; }
+
     }
 }

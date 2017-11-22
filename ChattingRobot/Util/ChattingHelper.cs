@@ -1,4 +1,4 @@
-﻿#define RELEASE
+﻿//#define RELEASE
 
 using NAudio.Wave;
 using System;

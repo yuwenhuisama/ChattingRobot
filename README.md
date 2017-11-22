@@ -10,7 +10,7 @@ A simple chatting robot implemented with `WPF` & `Turling Robot` & `Xunfei Apis`
 
 `Mahapps.Metro` site: http://mahapps.com/
 
-`NAudio` site: http://naudio.codeplex.com/
+`NAudio` site: https://github.com/naudio/NAudio
 
 `Mvvm.light` site: https://github.com/lbugnion/mvvmlight
 
